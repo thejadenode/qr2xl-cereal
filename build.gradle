@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'com.fazecast:jSerialComm:[2.0.0,3.0.0)'
+    implementation 'com.google.zxing:core:3.4.1'
+    implementation 'com.google.zxing:javase:3.4.1'
+    implementation 'org.apache.poi:poi-ooxml-full:5.0.0'
+    implementation 'org.apache.poi:poi-ooxml:5.0.0'
+    implementation 'com.github.sarxos:webcam-capture:0.3.12'
+    implementation 'com.google.zxing:zxing-parent:pom:3.4.1'
+}
+
+test {
+    useJUnitPlatform()
+}
