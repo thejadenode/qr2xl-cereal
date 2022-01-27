@@ -52,7 +52,9 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
 
         Dimension size = WebcamResolution.QVGA.getSize();
 
-        webcam = Webcam.getWebcams().get(0);
+        System.out.println(Webcam.getWebcams());
+
+        webcam = Webcam.getWebcams().get(1);
         webcam.setViewSize(size);
 //
         panel = new WebcamPanel(webcam);
@@ -104,8 +106,6 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
     @Override
     public void run() {
         do {
-
-            System.out.println("tes");
             if (!isLockedScanner) {
                 if (!isProcessing) {
                     isProcessing = true;
@@ -119,6 +119,7 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
 
                     Result result = null;
                     BufferedImage image = null;
+
 
                     if (webcam.isOpen()) {
                         System.out.println("webcam is open and scanning");
