@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class SerialHelper {
-    private static int serialPort = 5;
+    private static int serialPort = 1;
 
 
     public void main(String[] args) {
@@ -22,7 +22,6 @@ public class SerialHelper {
         String distance = "";
         try {
             int x = -1;
-            System.out.print("test: ");
             System.out.println(x!=32);
             //Stops at new line
             while (x!=10){
