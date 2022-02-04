@@ -62,6 +62,7 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
         panel.setImageSizeDisplayed(true);
         panel.setMirrored(true);
         panel.setFitArea(true);
+        panelCamera.add(panel);
 
         jFileChooser = new JFileChooser();
         jFileChooser.setAcceptAllFileFilterUsed(false);
