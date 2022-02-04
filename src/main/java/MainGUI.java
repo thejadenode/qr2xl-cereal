@@ -49,20 +49,19 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
     public MainGUI(String title){
         super(title);
 
-
         Dimension size = WebcamResolution.QVGA.getSize();
 
         System.out.println(Webcam.getWebcams());
 
         webcam = Webcam.getWebcams().get(1);
-        webcam.setViewSize(size);
+        //webcam.setViewSize(size);
 //
         panel = new WebcamPanel(webcam);
-        panel.setPreferredSize(size);
+//        panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
         panel.setImageSizeDisplayed(true);
         panel.setMirrored(true);
-        panelCamera.add(panel);
+        panel.setFitArea(true);
 
         jFileChooser = new JFileChooser();
         jFileChooser.setAcceptAllFileFilterUsed(false);
