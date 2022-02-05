@@ -4,22 +4,24 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class SerialHelper {
-    private static int serialPort = 1;
+    private static int serialPort = 5;
 
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         getAllPorts();
 
-        System.out.println("Distance is " + getDistance());
+        System.out.println("Distance is " + getTemperature());
     }
 
-    public String getDistance(){
+    public static String getTemperature(){
         SerialPort comPort = SerialPort.getCommPorts()[serialPort];
         comPort.openPort();
         comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
 
         InputStream in = comPort.getInputStream();
-        String distance = "";
+        String temperature = "";
+
+
         try {
             int x = -1;
             System.out.println(x!=32);
@@ -40,15 +42,15 @@ public class SerialHelper {
                         }
                     }
 
-                    if (x!=10) distance = word;
-                    System.out.println(word);
+                    temperature = word;
+                    System.out.println("SCANNED: " + word);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         comPort.closePort();
-        return distance;
+        return temperature;
     }
 
     public static void getAllPorts() {

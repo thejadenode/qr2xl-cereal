@@ -53,7 +53,7 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
 
         System.out.println(Webcam.getWebcams());
 
-        webcam = Webcam.getWebcams().get(1);
+        webcam = Webcam.getWebcams().get(0);
         //webcam.setViewSize(size);
 //
         panel = new WebcamPanel(webcam);
@@ -143,8 +143,8 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
                         System.out.println("Scanned: " + result.getText() + " at " + timeStamp);
                         panelInfo.setBackground(Color.GREEN);
 
-                        String temp = serialHelper.getDistance();
-                        System.out.println("Temperature is " + serialHelper.getDistance());
+                        String temp = serialHelper.getTemperature();
+                        System.out.println("Temperature is " + serialHelper.getTemperature());
                         txtInfo.setText(result.getText() + " | " + temp + "degreeC");
 
                         try {
