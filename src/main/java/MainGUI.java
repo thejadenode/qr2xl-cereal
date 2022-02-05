@@ -105,6 +105,38 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
     }
 
     @Override
+    public void validate() {
+        super.validate();
+        Font labelFont = txtInfo.getFont();
+        String labelText = txtInfo.getText();
+        int stringWidth = txtInfo.getFontMetrics(labelFont).stringWidth(labelText);
+        int componentWidth = txtInfo.getSize().width;
+        System.out.println("label width: " + componentWidth);
+        System.out.println("font size: " + labelFont.getSize());
+        double widthRatio = (double)componentWidth / (double)stringWidth;
+        int newFontSize = (int)(labelFont.getSize() * widthRatio);
+        System.out.println("new font size: " + newFontSize);
+        int componentHeight = txtInfo.getHeight();
+        int fontSizeToUse = Math.min(newFontSize, componentHeight);
+        txtInfo.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+
+        Font txtHeaderFont = txtHeader.getFont();
+        String txtHeaderText = txtHeader.getText();
+        int txtHeaderstringWidth = txtHeader.getFontMetrics(txtHeaderFont).stringWidth(txtHeaderText);
+        int txtHeadercomponentWidth = txtHeader.getSize().width;
+        System.out.println("label width: " + txtHeadercomponentWidth);
+        System.out.println("font size: " + txtHeaderFont.getSize());
+        double txtHeaderwidthRatio = (double)txtHeadercomponentWidth / (double)txtHeaderstringWidth;
+        int txtHeadernewFontSize = (int)(txtHeaderFont.getSize() * txtHeaderwidthRatio);
+        System.out.println("new font size: " + txtHeadernewFontSize);
+        int txtHeadercomponentHeight = txtHeader.getHeight();
+        int txtHeaderfontSizeToUse = Math.min(txtHeadernewFontSize, txtHeadercomponentHeight);
+        txtHeader.setFont(new Font(txtHeaderFont.getName(), Font.PLAIN, txtHeaderfontSizeToUse));
+
+        System.out.println("Validated");
+    }
+
+    @Override
     public void run() {
         do {
             if (!isLockedScanner) {
