@@ -37,6 +37,7 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
     private JLabel txtInfo;
     private JLabel txtHeader;
     private JLabel txtFilePath;
+    private JLabel txtSubInfo;
     private JFileChooser jFileChooser;
 
     private Executor executor = Executors.newSingleThreadExecutor(this);
@@ -110,7 +111,8 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
                 if (!isProcessing) {
                     isProcessing = true;
                     txtInfo.setText("");
-                    panelInfo.setBackground(Color.RED);
+                    txtSubInfo.setText("");
+                    panelFileBar.setBackground(Color.GRAY);
                     try {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
@@ -141,11 +143,22 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
                         txtInfo.setText(result.getText() + ", please scan your temperature");
                         String timeStamp = getCurrentTimeStamp();
                         System.out.println("Scanned: " + result.getText() + " at " + timeStamp);
-                        panelInfo.setBackground(Color.GREEN);
+                        panelFileBar.setBackground(Color.GREEN);
 
                         String temp = serialHelper.getTemperature();
                         System.out.println("Temperature is " + serialHelper.getTemperature());
-                        txtInfo.setText(result.getText() + " | " + temp + "degreeC");
+                        txtInfo.setText(result.getText());
+                        txtSubInfo.setText(temp +"\u00B0" + "C | " + getTemperatureMeaning(Float.parseFloat(temp)));
+                        switch(getTemperatureMeaning(Float.parseFloat(temp))){
+                            case "Mild Fever": txtSubInfo.setForeground(Color.ORANGE);
+                                break;
+
+                            case "Fever": txtSubInfo.setForeground(Color.RED);
+                                break;
+
+                            case "Normal": txtSubInfo.setForeground(Color.GREEN);
+                                break;
+                        }
 
                         try {
                             if (!sheetsHelper.isExisting(result.getText(), dateStamp)) {
@@ -154,16 +167,17 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
                         } catch (IOException ex) {
                             Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                     isProcessing = false;
                 }
             } else {
-                panelInfo.setBackground(Color.gray);
+                panelFileBar.setBackground(Color.GRAY);
             }
         } while (true);
     }
@@ -177,5 +191,11 @@ public class MainGUI extends JFrame implements Runnable, ThreadFactory {
 
     public static String getCurrentTimeStamp() {
         return new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+    }
+
+    public static String getTemperatureMeaning(float temp){
+        if (temp >= 38) return "Fever";
+        else if (temp >= 37) return "Mild Fever";
+        else return "Normal";
     }
 }
