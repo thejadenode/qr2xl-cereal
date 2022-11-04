@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class SerialHelper {
     private static int serialPort = 5;
-    private static int errorCorrect = 1; //used to adjust temperature sensor
+    private static int errorCorrect = 4; //used to adjust temperature sensor
 
 
     public static void main(String[] args) {

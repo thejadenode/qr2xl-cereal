@@ -1,0 +1,1 @@
+1.0.1 - adjusted error correction to 4 (+3)
